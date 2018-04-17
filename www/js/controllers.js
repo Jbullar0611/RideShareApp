@@ -21,7 +21,7 @@ angular.module('starter.controllers', [])
   $scope.ride = Rides.get($stateParams.rideId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', function($scope) {// location settings here
   $scope.settings = {
     enableFriends: true
   };
