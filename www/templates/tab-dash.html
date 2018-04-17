@@ -3,6 +3,7 @@
     <div class="center">
         <img src="../img/rideshare.JPG">
     </div>
+    <form ng-submit="login()">
     <div class="center">
       <div class="card" style="width:35%">
           <div class="container">
@@ -10,13 +11,19 @@
           </div>
           <div class="container">
               <label class="item item-input" style="border: 1px inset">
-                <input type="text" placeholder="xyz@etcetra.com">
+                <input type="email" placeholder="xyz@etcetra.com" ng-model="account.emailID">
               </label> 
           </div>
           <div class="container">
-              <button type="button" class="button button-full button-positive">Confirm</button>
+              <label class="item item-input" style="border: 1px inset">
+                <input type="password" placeholder="Password" ng-model="account.password">
+              </label> 
           </div>
-      </div>    
+          <div class="container">
+              <button type="submit" class="button button-full button-positive">Confirm</button>
+          </div>
+      </div>
+    </form>    
     </div>
   </ion-content>
 </ion-view>

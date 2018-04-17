@@ -6,8 +6,10 @@
         <h2>{{ride.name}}</h2>
         <p>{{ride.lastText}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
-
-        <ion-option-button class="button-assertive" ng-click="(ride)">
+        <ion-option-button class="button-assertive" ng-click="remove(ride)">
+          Delete
+        </ion-option-button>
+        <ion-option-button class="button-calm" ng-click="(ride)">
           Book Ride
         </ion-option-button>
       </ion-item>
