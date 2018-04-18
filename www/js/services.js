@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory('Rides',['$http', function($http) {
+.factory('Rides', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -33,9 +33,7 @@ angular.module('starter.services', [])
 
   return {
     all: function() {
-      return{
-        
-      };
+      return rides;
     },
     remove: function(ride) {
       rides.splice(rides.indexOf(ride), 1);
@@ -49,4 +47,4 @@ angular.module('starter.services', [])
       return null;
     }
   };
-}]);
+});
