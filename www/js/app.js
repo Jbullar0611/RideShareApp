@@ -78,12 +78,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-  .state('tab.make', {
-    url: '/make',
+  .state('tab.create', {
+    url: '/create',
     views: {
-      'tab-make': {
-        templateUrl: 'templates/tab-make.html',
-        controller: 'MakeCtrl'
+      'tab-create': {
+        templateUrl: 'templates/tab-create.html',
+        controller: 'CreateCtrl'
       }
     }
   });

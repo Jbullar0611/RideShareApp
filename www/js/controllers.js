@@ -34,7 +34,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('MakeCtrl', function($scope){
+.controller('CreateCtrl', function($scope){
   $scope.settings = {
     enableFriends: false
   }
