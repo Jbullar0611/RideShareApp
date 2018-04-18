@@ -35,7 +35,23 @@ angular.module('starter.controllers', [])
 })
 
 .controller('CreateCtrl', function($scope){
+  $scope.data = {};
+  $scope.data.imageSource = "img/ionic.png" ;
   $scope.settings = {
     enableFriends: false
+  }
+  $scope.CreateRide = function(){
+
+  }
+  $scope.takePicture = function(){
+    alert("Taking photo");
+    navigator.camera.getPicture(function(imageData){
+      alert(imageData);
+      $scope.data.imageSource = imageData.imageSource;
+    }, 
+    function(message){
+      console.log(message);
+    }, 
+    { quality: 50 });
   }
 });
