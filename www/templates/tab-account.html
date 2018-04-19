@@ -1,5 +1,7 @@
 <ion-view view-title="Account">
   <ion-content>
+  	<img ng-src={{data.imageSource}} style="height: 50px; width: 50px;">
+    <button class="button button-balanced" ng-click="takePicture()">Take a Picture</button>
     <ion-list>
     <ion-toggle  ng-model="settings.enableFriends">
         Enable location

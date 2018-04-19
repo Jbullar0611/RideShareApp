@@ -1,9 +1,7 @@
 <ion-view view-title="Create">
-    <ion-content>
-      <div class="container center-no-top">
-        <h3>Create Your Own Ride</h3>
-      </div>
-      <form ng-submit = "CreateRide()">
+  <ion-content>
+    <h3 style="text-align: center;">Create Your Own Ride</h3>
+    <form ng-submit = "CreateRide()">
       <div class="list">
         <label class="item item-input">
           <input type="text" placeholder="From">
@@ -19,10 +17,7 @@
         </label>
       </div>
       <button class=" button button-full button-calm" type = "submit">Create a Ride</button>
-      <img ng-src={{data.imageSource}}>
-      <button class="button button-balanced" ng-click="takePicture()"> Take a Picture 
-      </button>
-      </form>
-    </ion-content>
-  </ion-view>
+    </form>
+  </ion-content>
+</ion-view>
   

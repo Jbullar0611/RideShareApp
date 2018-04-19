@@ -32,26 +32,26 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
-})
 
-.controller('CreateCtrl', function($scope){
   $scope.data = {};
-  $scope.data.imageSource = "img/ionic.png" ;
-  $scope.settings = {
-    enableFriends: false
-  }
-  $scope.CreateRide = function(){
-
-  }
+  $scope.data.imageSource = "img/ionic.png";
   $scope.takePicture = function(){
-    alert("Taking photo");
     navigator.camera.getPicture(function(imageData){
-      alert(imageData);
-      $scope.data.imageSource = imageData.imageSource;
+      $scope.data.imageSource = imageData;
     }, 
     function(message){
       console.log(message);
     }, 
-    { quality: 50 });
-  }
+    { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
+  };
+})
+
+.controller('CreateCtrl', function($scope){
+  $scope.settings = {
+    enableFriends: false
+  };
+
+  $scope.CreateRide = function(){
+
+  };
 });
