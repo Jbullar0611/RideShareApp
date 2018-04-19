@@ -1,8 +1,10 @@
-<ion-view view-title="Dashboard">
+<ion-view view-title="Welcome to Ride Share App">
   <ion-content class="padding">
     <div class="center">
         <img class="logo" src="../img/rideshare.JPG">
     </div>
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+     Your app may use that space for branding, controls and other customizations.-->
     <form ng-submit="login()">
       <h4 style="text-align:center;"><b>Login</b></h4> 
       <label class="item item-input" style="border: 1px inset">
@@ -12,6 +14,6 @@
         <input type="password" placeholder="Password" ng-model="account.password">
       </label> 
       <button type="submit" class="button button-full button-positive">Confirm</button>
-    </form>    
+    </form>  
   </ion-content>
 </ion-view>

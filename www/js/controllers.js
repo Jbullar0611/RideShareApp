@@ -5,8 +5,7 @@ angular.module('starter.controllers', [])
   $scope.account = {};
   $scope.login = function(){
     
-  }
-  
+  };
 })
 
 .controller('RidesCtrl', function($scope, Rides) {
@@ -17,11 +16,9 @@ angular.module('starter.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-
-  $scope.rides = Rides.all();
-  $scope.remove = function(ride) {
-    Rides.remove(ride);
-  };
+  Rides.getAvailableRides().then(function(response) {
+    $scope.rides = response;
+  });
 })
 
 .controller('RideDetailCtrl', function($scope, $stateParams, Rides) {
