@@ -3,16 +3,16 @@
     <form ng-submit = "CreateRide()">
       <div class="list">
         <label class="item item-input">
-          <input type="text" placeholder="From">
+          <input type="text" placeholder="From" ng-model="ride.departure">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="To">
+          <input type="text" placeholder="To" ng-model="ride.destination">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="Time">
+          <input type="text" placeholder="Time" ng-model="ride.time">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="Number of Passengers">
+          <input type="text" placeholder="Number of Passengers" ng-model="ride.passenger">
         </label>
       </div>
       <button class=" button button-full button-calm" type = "submit">Create</button>

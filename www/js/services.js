@@ -8,6 +8,9 @@ angular.module('starter.services', [])
        .then(function (response) {
        return response.data;
       });
-    }
+    },
+    Create: function(){
+
+    } 
   };
 });

@@ -1,8 +1,17 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('DashCtrl', function($scope, $window, $document) {
   $scope.isLoggedIn;
   $scope.account = {};
+  $scope.loginData= {};
+  $scope.saveToSession = function(){
+    $scope.loginData = {
+      id : $scope.account.emailID,
+      password : $scope.account.passsword
+    }
+    $window.sessionStorage.setItem
+    ($scope.account.emailID, JSON.stringify($scope.loginData));
+  }
   $scope.login = function(){
     
   };
@@ -39,15 +48,12 @@ angular.module('starter.controllers', [])
     function(message){
       console.log(message);
     }, 
-    { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
+    { quality: 50, destinationType: navigator.camera.DestinationType.sFILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
   };
 })
 
 .controller('CreateCtrl', function($scope){
-  $scope.settings = {
-    enableFriends: false
-  };
-
+  $scope.ride={};
   $scope.CreateRide = function(){
 
   };
