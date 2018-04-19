@@ -9,7 +9,7 @@
     "gulp-sass": "^3.1.0"
   },
   "dependencies": {
-<<<<<<< Updated upstream
+
     "cordova-android": "7.0.0",
     "cordova-plugin-browsertab": "^0.2.0",
     "cordova-plugin-buildinfo": "^2.0.1",
@@ -39,14 +39,5 @@
     "platforms": [
       "android"
     ]
-=======
-    "cordova": "^8.0.0",
-    "cordova-plugin-camera": "^4.0.3"
-  },
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-camera": {}
-    }
->>>>>>> Stashed changes
   }
 }

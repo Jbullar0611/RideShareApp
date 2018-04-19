@@ -29,3 +29,7 @@
     width: 30vw;
     margin-left: 10%; 
 }
+table>th,td{
+    margin-left: 25%;
+    text-align:center;
+}

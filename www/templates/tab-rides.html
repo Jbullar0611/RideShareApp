@@ -1,42 +1,25 @@
 <ion-view view-title="Available Rides">
   <ion-content>
     <img ng-src="{{ride.userId}}">
-    <table>
-      <tr>
-        <th>
-          Departure
-        </th>
-        <th>
-          Destination
-        </th>
-        <th>
-          Date
-        </th>
-        <th>
-          Passengers
-        </th>
-        <th>
-        </th>
-      </tr>
-      <tr class="item-remove-animate item-avatar item-icon-right text-center" ng-repeat="ride in rides" type="item-text-wrap">
-        <td>
-          {{ride.departure}}
-        </td>
-        <td>
-          {{ride.destination}}
-        </td>
-        <td>
-          {{ride.time}}
-        </td>
-        <td>
-          {{ride.passengers}}
-        </td>
-        <td>
-        <button class="button button-balanced" ng-click="book(ride.id, ride.userId)">
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="ride in rides" type="item-text-wrap" href="#/tab/rides/{{ride.id}}">
+        <img>
+        <p>
+          Ride From {{ride.departure}} To {{ride.destination}}
+        </p>
+        <p>
+          Time Taken : {{ride.time}} &nbsp Passengers: {{ride.passengers}}
+        </p>
+        <span style="float:right;color:darkgrey;">
+          <-- Swipe this way
+        </p>
+        <ion-option-button class="button-assertive" ng-click="add(food)">
+          Delete
+        </ion-option-button>
+        <ion-option-button class="button-balanced" ng-click="book(ride.id, ride.userId)">
           Book
-        </button>
-        </td>
-      </tr>
-    </table>    
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
