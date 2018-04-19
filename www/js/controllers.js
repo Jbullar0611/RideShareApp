@@ -48,7 +48,7 @@ angular.module('starter.controllers', [])
     function(message){
       console.log(message);
     }, 
-    { quality: 50, destinationType: navigator.camera.DestinationType.sFILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
+    { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
   };
 })
 
