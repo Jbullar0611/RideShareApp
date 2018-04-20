@@ -1,19 +1,18 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $window, $document) {
-  $scope.isLoggedIn;
-  $scope.account = {};
-  $scope.loginData= {};
+.controller('DashCtrl', function($scope, Account) {
+  $scope.account = {};// form data
+  $scope.loginData= {};// form data in json
   $scope.saveToSession = function(){
     $scope.loginData = {
       id : $scope.account.emailID,
-      password : $scope.account.passsword
+      password : $scope.account.password
     }
-    $window.sessionStorage.setItem
-    ($scope.account.emailID, JSON.stringify($scope.loginData));
+     Account.saveToSession($scope.loginData);
   }
   $scope.login = function(){
-    
+    $scope.saveToSession();
+    Account.findUser($scope.loginData);
   };
 })
 
@@ -35,9 +34,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AccountCtrl', function($scope) {// location settings here
-  $scope.settings = {
-    enableFriends: true
-  };
 
   $scope.data = {};
   $scope.data.imageSource = "img/ionic.png";
@@ -52,9 +48,12 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CreateCtrl', function($scope){
+.controller('CreateCtrl', function($scope, $window){
   $scope.ride={};
   $scope.CreateRide = function(){
-
+    if($window.sessionStorage)
+      console.log($scope.ride.destination);
+    else
+      alert("You need to login");
   };
 });
