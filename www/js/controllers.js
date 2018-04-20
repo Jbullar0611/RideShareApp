@@ -1,8 +1,13 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, Account) {
+.controller('DashCtrl', function($scope, $firebaseObject, Account) {
   $scope.account = {};// form data
   $scope.loginData= {};// form data in json
+  $scope.initializeFirebase = function(){
+    var ref = new Firebase("https://rideshareapp-201321.firebaseio.com/riders/");
+    $scope.riders = $firebaseObject(ref);  
+  }
+
   $scope.saveToSession = function(){
     $scope.loginData = {
       id : $scope.account.emailID,
@@ -10,9 +15,12 @@ angular.module('starter.controllers', [])
     }
      Account.saveToSession($scope.loginData);
   }
+  $scope.findUser = function(){
+    Account.findUser($scope.loginData,$scope.riders);
+  }
   $scope.login = function(){
     $scope.saveToSession();
-    Account.findUser($scope.loginData);
+    $scope.findUser();
   };
 })
 
@@ -36,7 +44,7 @@ angular.module('starter.controllers', [])
 .controller('AccountCtrl', function($scope) {// location settings here
 
   $scope.data = {};
-  $scope.data.imageSource = "img/ionic.png";
+  $scope.data.imageSource = "img/ionic.png";// Why is camera herE??? Qiang?
   $scope.takePicture = function(){
     navigator.camera.getPicture(function(imageData){
       $scope.data.imageSource = imageData;
@@ -48,11 +56,22 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CreateCtrl', function($scope, $window){
+.controller('CreateCtrl', function($scope, $window, Account, Rides){
   $scope.ride={};
+  $scope.userId;
   $scope.CreateRide = function(){
-    if($window.sessionStorage)
-      console.log($scope.ride.destination);
+    if(Account.getSessionData())
+    {
+      $scope.userId = $scope.getSessionData();
+      var rideJson = {
+        userID : $scope.userId,
+        departure : $scope.ride.departure,
+        destination : $scope.ride.destination,
+        time : $scope.ride.time,
+        passengers : $scope.ride.passenger
+      }
+      Rides.CreateRide(rideJson);
+    }
     else
       alert("You need to login");
   };

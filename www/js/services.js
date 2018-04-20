@@ -1,5 +1,5 @@
 angular.module('starter.services', [])
-  .factory('Account', function ($http, $window) {
+  .factory('Account', function ($scope, $http, $window) {
     return {
       saveToSession: function (accountJson) {
         if ($window.sessionStorage.getItem(accountJson.id)) { // for checking throughout the app
@@ -9,14 +9,19 @@ angular.module('starter.services', [])
         else {
           $window.sessionStorage.setItem
             (accountJson.id, JSON.stringify(accountJson));
+            $scope.id = accountJson.id;
         }
       },
-      findUser : function(){
-
+      getSessionData : function (){// used to retrieve session variable for other controllers
+       return $window.sessionStorage.getItem($scope.id);// will this $scope.id work???
+      },
+      findUser : function(accountData, oRiders){
+        $scope.data;
+        foreach( $scope.data in oRiders);// Needs an iterative logic through firebase
       }
     }
   })
-  .factory('Rides', function ($http) {
+  .factory('Rides', function ($http, $httpParamSerializer) {
     // Might use a resource here that returns a JSON array
     return {
       getAvailableRides: function () {
@@ -25,8 +30,11 @@ angular.module('starter.services', [])
             return response.data;
           });
       },
-      Create: function () {
-
-      }
+      CreateRide: function (rideJson) {
+          return $http.post('http://52.15.77.158:8081/rideshares/searchAvailableRide', $httpParamSerializer(rideJson))// Will this work??
+          .success(function(response){
+            return response.data;
+          })
+        }
     };
   });
