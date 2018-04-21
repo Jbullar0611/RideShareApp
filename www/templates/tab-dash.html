@@ -5,15 +5,31 @@
     </div>
     <!-- The surrounding HTML is left untouched by FirebaseUI.
      Your app may use that space for branding, controls and other customizations.-->
-    <form ng-submit="login()">
-      <h4 style="text-align:center;"><b>Login</b></h4> 
+    <form ng-submit="signup()" name="signupForm" ng-show="toggleAccount=='Signup'">
+      <h4 style="text-align:center;"><b>Signup</b></h4> 
       <label class="item item-input" style="border: 1px inset">
-        <input type="email" placeholder="xyz@etcetra.com" ng-model="account.emailID">
+        <input type="email" placeholder="xyz@etcetra.com" ng-model="signupData.email" required>
       </label> 
       <label class="item item-input" style="border: 1px inset">
-        <input type="password" placeholder="Password" ng-model="account.password">
+        <input type="password" placeholder="Password" ng-model="signupData.password" required>
+      </label>
+      <label class="item item-input" style="border: 1px inset">
+        <input type="password" placeholder="Password Confirm" ng-model="signupData.passwordConfirm" ng-pattern="{{signupData.password}}" required>
+      </label>
+      <button ng-disabled="signupForm.$invalid" type="submit" class="button button-full button-positive">Signup</button>
+    </form>
+    <form ng-submit="login()" name="loginForm" ng-show="toggleAccount=='Login'">
+      <h4 style="text-align:center;"><b>Signup</b></h4> 
+      <label class="item item-input" style="border: 1px inset">
+        <input type="email" placeholder="xyz@etcetra.com" ng-model="loginData.email" required>
       </label> 
-      <button type="submit" class="button button-full button-positive">Confirm</button>
-    </form>  
+      <label class="item item-input" style="border: 1px inset">
+        <input type="password" placeholder="Password" ng-model="loginData.password" required>
+      </label>
+      <button type="submit" class="button button-full button-positive">Login</button>
+    </form> 
+    <button class="button button-block button-royal" ng-show="toggleAccount=='Signup'" ng-click="toggleAccountForm()">Or Login</button> 
+    <button class="button button-block button-royal" ng-show="toggleAccount=='Login'" ng-click="toggleAccountForm()">Or Signup</button> 
+
   </ion-content>
 </ion-view>

@@ -13,4 +13,23 @@ angular.module('starter.services', [])
 
     } 
   };
+})
+.factory('User',function($http,$rootScope){ 
+   
+  return {
+    signup:function(data){
+      $rootScope.users[data.token] = {email:data.email,password:data.password};
+      $rootScope.users.$save();
+    },
+    login:function(data){
+      if($rootScope.users.hasOwnProperty(data.token)){
+        if($rootScope.users[data.token]!=null){
+          return true;
+        }
+      }
+    },
+    logout:function(){
+      $rootScope.isLoggedIn = false;
+    }
+  }
 });
