@@ -13,9 +13,12 @@ angular.module('starter.controllers', [])
   $scope.findUser = function(){
     Account.findUser($scope.account,$scope.riders);
   }
-  $scope.login = function(){
+  $scope.login = function(){//needs Iterative Logic here
+    // foreach(var data in $scope.riders){
+
+    // }
     $scope.saveToSession();
-    $scope.findUser();
+    
   };
 })
 
@@ -54,18 +57,20 @@ angular.module('starter.controllers', [])
 .controller('CreateCtrl', function($scope, $window, Account, Rides){
   $scope.ride={};
   $scope.userId;
+  $scope.rideJson = {};
   $scope.CreateRide = function(){
+    console.log($window.sessionStorage.getItem('userData'));
     if(Account.getSessionData())
     {
-      $scope.userId = $scope.getSessionData();
-      var rideJson = {
-        userID : $scope.userId,
+      $scope.rideJson = {
+        userId : $window.sessionStorage.getItem('userData'),
         departure : $scope.ride.departure,
         destination : $scope.ride.destination,
         time : $scope.ride.time,
-        passengers : $scope.ride.passenger
+        passengers : $scope.ride.passengers
       }
-      Rides.CreateRide(rideJson);
+      console.log($scope.rideJson);
+      Rides.CreateRide($scope.rideJson);
     }
     else
       alert("You need to login");

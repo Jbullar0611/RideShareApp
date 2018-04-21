@@ -1,24 +1,20 @@
 angular.module('starter.services', [])
-  .factory('Account', function ($scope, $http, $window) {
+  .factory('Account', function ( $http, $window) {
     return {
       saveToSession: function (accountJson) {
-        if ($window.sessionStorage.getItem(accountJson.id)) { // for checking throughout the app
+        if ($window.sessionStorage.getItem('userData')) { // for checking throughout the app
           //$window.sessionStorage.removeItem(accountJson.id);
           alert("User Already Exist");
         }
         else {
+          var id = accountJson.emailID;
           $window.sessionStorage.setItem
-            (accountJson.id, JSON.stringify(accountJson));
-            $scope.id = accountJson.id;
+            ('userData', id);
         }
       },
       getSessionData : function (){// used to retrieve session variable for other controllers
-       return $window.sessionStorage.getItem($scope.id);// will this $scope.id work???
-      },
-      findUser : function(accountData, oRiders){
-        var data;
-        //foreach( var data in oRiders);
-        // Needs an iterative logic through firebase
+        console.log('userData'+$window.sessionStorage.getItem('userData'));
+        return $window.sessionStorage.getItem('userData');// will this $scope.id work???
       }
     }
   })
@@ -34,6 +30,18 @@ angular.module('starter.services', [])
       CreateRide: function (rideJson) {
           return $http.post('http://52.15.77.158:8081/rideshares/', rideJson)// Will this work??
           .success(function(response){
+            return response.data;
+          })
+        },
+        BookRide: function(rideJson) {// need just RideID and UserId
+          return $http.post('http://52.15.77.158:8081/rideshares/bookRide/', rideJson)
+          .success(function (response){
+            return response.data;
+          })
+        },
+        RemoveRide: function(rideID){//needs just RideID
+          return $http.delete('http://52.15.77.158:8081/rideshares/', rideID)
+          .success(function (response){
             return response.data;
           })
         }
