@@ -2,21 +2,16 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $firebaseObject, Account) {
   $scope.account = {};// form data
-  $scope.loginData= {};// form data in json
   $scope.initializeFirebase = function(){
     var ref = new Firebase("https://rideshareapp-201321.firebaseio.com/riders/");
     $scope.riders = $firebaseObject(ref);  
   }
 
   $scope.saveToSession = function(){
-    $scope.loginData = {
-      id : $scope.account.emailID,
-      password : $scope.account.password
-    }
-     Account.saveToSession($scope.loginData);
+     Account.saveToSession($scope.account);
   }
   $scope.findUser = function(){
-    Account.findUser($scope.loginData,$scope.riders);
+    Account.findUser($scope.account,$scope.riders);
   }
   $scope.login = function(){
     $scope.saveToSession();

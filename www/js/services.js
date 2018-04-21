@@ -16,12 +16,13 @@ angular.module('starter.services', [])
        return $window.sessionStorage.getItem($scope.id);// will this $scope.id work???
       },
       findUser : function(accountData, oRiders){
-        $scope.data;
-        foreach( $scope.data in oRiders);// Needs an iterative logic through firebase
+        var data;
+        //foreach( var data in oRiders);
+        // Needs an iterative logic through firebase
       }
     }
   })
-  .factory('Rides', function ($http, $httpParamSerializer) {
+  .factory('Rides', function ($http) {
     // Might use a resource here that returns a JSON array
     return {
       getAvailableRides: function () {
@@ -31,7 +32,7 @@ angular.module('starter.services', [])
           });
       },
       CreateRide: function (rideJson) {
-          return $http.post('http://52.15.77.158:8081/rideshares/searchAvailableRide', $httpParamSerializer(rideJson))// Will this work??
+          return $http.post('http://52.15.77.158:8081/rideshares/', rideJson)// Will this work??
           .success(function(response){
             return response.data;
           })
