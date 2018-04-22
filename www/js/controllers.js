@@ -26,6 +26,7 @@ angular.module('starter.controllers', [])
   $scope.login = function(){
     if(User.login({token:CryptoJS.MD5($scope.loginData.email+$scope.loginData.password+'secretsecretessecrets')})){
       $rootScope.isLoggedIn = true;
+      $rootScope.email = $scope.loginData.email;
       $state.go('tab.rides');
     }else{
       $rootScope.isLoggedIn = false;
@@ -34,22 +35,39 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('RidesCtrl', function($scope, Rides) {
+.controller('RidesCtrl', function($scope, Rides, $rootScope) {
   // With
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  $scope.$on('$ionicView.enter', function(e) {
+    Rides.getAvailableRides().then(function(response) {
+      $scope.rides = response;
+    });
+
+    $scope.book = function(id){
+      Rides.book(id, $rootScope.email);
+      Rides.getAvailableRides().then(function(response) {
+        $scope.rides = response;
+      });
+    };
+
+    $scope.delete = function(id) {
+      Rides.delete(id);
+      Rides.getAvailableRides().then(function(response) {
+        $scope.rides = response;
+      });
+    }
+  });
 
   //You can check either here or on front end if user is logged in or not and on the basis of that do any logic or show any UI
   //To simplify just inject $rootScope and use variable isLoggedIn to check the user status
   //Call logout to logout the user and set the variable to false
-  Rides.getAvailableRides().then(function(response) {
-    $scope.rides = response;
-  });
+  
 })
 
+
 .controller('RideDetailCtrl', function($scope, $stateParams, Rides) {
-  $scope.ride = Rides.get($stateParams.rideId);
+  //$scope.ride = Rides.get($stateParams.rideId);
 })
+
 
 .controller('AccountCtrl', function($scope) {// location settings here
   $scope.settings = {
@@ -69,9 +87,15 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CreateCtrl', function($scope){
-  $scope.ride={};
-  $scope.CreateRide = function(){
-
-  };
+.controller('CreateCtrl', function($scope, Rides, $rootScope, $state){
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.ride={};
+    $scope.CreateRide = function(){
+      Rides.Create($rootScope.email, $scope.ride.departure, $scope.ride.destination, $scope.ride.time, $scope.ride.passengers);
+      Rides.getAvailableRides().then(function(response) {
+        $scope.rides = response;
+      });
+      $state.go('tab.account');
+    };
+  });
 });
