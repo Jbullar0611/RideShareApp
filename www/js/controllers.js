@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope) {// location settings here
+.controller('AccountCtrl', function($scope, Rides,$rootScope) {// location settings here
   $scope.settings = {
     enableFriends: true
   };
@@ -85,6 +85,26 @@ angular.module('starter.controllers', [])
     }, 
     { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
   };
+
+  Rides.offeredRides($rootScope.email).then(function(response) {
+      $scope.offeredRides = response;
+  });
+
+  Rides.bookedRides($rootScope.email).then(function(response) {
+      $scope.bookedRides = response;
+  });
+
+  $scope.delete = function(id) {
+    Rides.delete(id);
+
+    Rides.offeredRides($rootScope.email).then(function(response) {
+      $scope.offeredRides = response;
+    });
+
+    Rides.bookedRides($rootScope.email).then(function(response) {
+        $scope.bookedRides = response;
+    });
+  }
 })
 
 .controller('CreateCtrl', function($scope, Rides, $rootScope, $state){

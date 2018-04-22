@@ -2,10 +2,35 @@
   <ion-content>
   	<img ng-src={{data.imageSource}} style="height: 50px; width: 50px;">
     <button class="button button-balanced" ng-click="takePicture()">Take a Picture</button>
+
+    <p>Offered Rides</p>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable location
-    </ion-toggle>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="ride in offeredRides" type="item-text-wrap" href="#/tab/rides/{{ride.id}}">
+        <p>
+          Ride From {{ride.departure}} To {{ride.destination}}
+        </p>
+        <p>
+          Time Taken : {{ride.time}} &nbsp Passengers: {{ride.passengers}}
+        </p>
+        <ion-option-button class="button-assertive" ng-click="delete(ride.id)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+
+    <p>Booked Rides</p>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="ride in bookedRides" type="item-text-wrap" href="#/tab/rides/{{ride.id}}">
+        <p>
+          Ride From {{ride.departure}} To {{ride.destination}}
+        </p>
+        <p>
+          Time Taken : {{ride.time}} &nbsp Passengers: {{ride.passengers}}
+        </p>
+        <ion-option-button class="button-assertive" ng-click="delete(ride.id)">
+          Delete
+        </ion-option-button>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

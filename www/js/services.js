@@ -24,6 +24,18 @@ angular.module('starter.services', [])
     },
     delete: function(id){
       return $http({method:'DELETE', url:'http://52.15.77.158:8081/rideshares?id=' + id});
+    },
+    offeredRides:function(userId){
+      return $http.get('http://52.15.77.158:8081/rideshares/searchMyOfferedRide?userId=' + userId)
+       .then(function (response) {
+       return response.data;
+      });
+    },
+    bookedRides:function(userId){
+      return $http.get('http://52.15.77.158:8081/rideshares/searchMyBookedRide?userId=' + userId)
+       .then(function (response) {
+       return response.data;
+      });
     }
   };
 })
