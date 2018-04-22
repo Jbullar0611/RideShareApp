@@ -43,25 +43,29 @@ angular.module('starter.controllers', [])
   })
 })
 
-.controller('RidesCtrl', function($scope, Rides, $rootScope) {
+.controller('RidesCtrl', function($scope, Rides, $rootScope,$state) {
   // With
   $scope.$on('$ionicView.enter', function(e) {
-    Rides.getAvailableRides().then(function(response) {
-      $scope.rides = response;
-    });
-
-    $scope.book = function(id){
-      Rides.book(id, $rootScope.email);
+    if ($rootScope.isLoggedIn) {
       Rides.getAvailableRides().then(function(response) {
         $scope.rides = response;
       });
-    };
 
-    $scope.delete = function(id) {
-      Rides.delete(id);
-      Rides.getAvailableRides().then(function(response) {
-        $scope.rides = response;
-      });
+      $scope.book = function(id){
+        Rides.book(id, $rootScope.email);
+        Rides.getAvailableRides().then(function(response) {
+          $scope.rides = response;
+        });
+      };
+
+      $scope.delete = function(id) {
+        Rides.delete(id);
+        Rides.getAvailableRides().then(function(response) {
+          $scope.rides = response;
+        });
+      }
+    } else {
+      $state.go('tab.dash');
     }
   });
 
@@ -77,56 +81,64 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope, Rides,$rootScope) {// location settings here
+.controller('AccountCtrl', function($scope, Rides,$rootScope, $state) {// location settings here
   $scope.$on('$ionicView.enter', function(e) {
-    $scope.data = {};
-    //$scope.data.imageSource = "img/rideshare.JPG";
-    $scope.data.imageSource = window.localStorage.getItem($rootScope.key);
-    $scope.takePicture = function(){
-      navigator.camera.getPicture(function(imageData){
-        $scope.data.imageSource = imageData;
-      }, 
-      function(message){
-        console.log(message);
-      }, 
-      { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
-      window.localStorage.setItem($rootScope.key, $scope.data.imageSource);
-    };
-
-    Rides.offeredRides($rootScope.email).then(function(response) {
-        $scope.offeredRides = response;
-    });
-
-    Rides.bookedRides($rootScope.email).then(function(response) {
-        $scope.bookedRides = response;
-    });
-
-    $scope.delete = function(id) {
-      Rides.delete(id);
+    if ($rootScope.isLoggedIn) {
+      $scope.data = {};
+      //$scope.data.imageSource = "img/rideshare.JPG";
+      $scope.data.imageSource = window.localStorage.getItem($rootScope.key);
+      $scope.takePicture = function(){
+        navigator.camera.getPicture(function(imageData){
+          $scope.data.imageSource = imageData;
+        }, 
+        function(message){
+          console.log(message);
+        }, 
+        { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
+        window.localStorage.setItem($rootScope.key, $scope.data.imageSource);
+      };
 
       Rides.offeredRides($rootScope.email).then(function(response) {
-        $scope.offeredRides = response;
+          $scope.offeredRides = response;
       });
 
       Rides.bookedRides($rootScope.email).then(function(response) {
           $scope.bookedRides = response;
       });
+
+      $scope.delete = function(id) {
+        Rides.delete(id);
+
+        Rides.offeredRides($rootScope.email).then(function(response) {
+          $scope.offeredRides = response;
+        });
+
+        Rides.bookedRides($rootScope.email).then(function(response) {
+            $scope.bookedRides = response;
+        });
+      }
+    } else {
+      $state.go('tab.dash');
     }
   })
 })
 
 .controller('CreateCtrl', function($scope, Rides, $rootScope, $state){
   $scope.$on('$ionicView.enter', function(e) {
-    $scope.ride={};
-    $scope.CreateRide = function(){
-      Rides.Create($rootScope.email, $scope.ride.departure, $scope.ride.destination, $scope.ride.time, $scope.ride.passengers);
-      Rides.getAvailableRides().then(function(response) {
-        $scope.rides = response;
-      });
-      function alertCallback() {
-          $state.go('tab.account');
-      }
-      navigator.notification.alert("Ride sucessfully created.", alertCallback, "Congratulations!");
-    };
+    if ($rootScope.isLoggedIn) {
+      $scope.ride={};
+      $scope.CreateRide = function(){
+        Rides.Create($rootScope.email, $scope.ride.departure, $scope.ride.destination, $scope.ride.time, $scope.ride.passengers);
+        Rides.getAvailableRides().then(function(response) {
+          $scope.rides = response;
+        });
+        function alertCallback() {
+            $state.go('tab.account');
+        }
+        navigator.notification.alert("Ride sucessfully created.", alertCallback, "Congratulations!");
+      };
+    } else {
+      $state.go('tab.dash');
+    }
   });
 });
