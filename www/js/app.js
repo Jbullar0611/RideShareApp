@@ -20,13 +20,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','f
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-    
       var ref = new Firebase("https://rideshare-56ce7.firebaseio.com/users");
       $rootScope.users = $firebaseObject(ref);  
-
-      
-
   });
 })
 
