@@ -1,38 +1,47 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $window, $document,User,$rootScope,$state) {
-  $scope.signupData = {};
-  $scope.loginData = {};
+  $scope.$on('$ionicView.enter', function(e) {
+    console.log($rootScope.isLoggedIn);
+    if ($rootScope.isLoggedIn) {
+      $state.go('tab.account');
+    } else {
+      $scope.signupData = {};
+      $scope.loginData = {};
 
-  //Use this variable to check if user is logged in or not
-  $rootScope.isLoggedIn = false;
-
-  //This logic is for the toggling of login and signup form
-  $scope.toggleAccount = 'Signup';
-  $scope.toggleAccountForm = function(){
-    if($scope.toggleAccount=='Signup'){
-      $scope.toggleAccount = 'Login';
-    }else{
-      $scope.toggleAccount = 'Signup';
-    }
-  }
-
-  $scope.signup = function(){
-    User.signup({token:CryptoJS.MD5($scope.signupData.email+$scope.signupData.password+'secretsecretessecrets'),email:$scope.signupData.email,password:$scope.signupData.password});
-    $rootScope.isLoggedIn = true;
-    $state.go('tab.rides');
-  }
-
-  $scope.login = function(){
-    if(User.login({token:CryptoJS.MD5($scope.loginData.email+$scope.loginData.password+'secretsecretessecrets')})){
-      $rootScope.isLoggedIn = true;
-      $rootScope.email = $scope.loginData.email;
-      $state.go('tab.rides');
-    }else{
+      //Use this variable to check if user is logged in or not
       $rootScope.isLoggedIn = false;
-      $scope.toggleAccountForm();
+
+      //This logic is for the toggling of login and signup form
+      $scope.toggleAccount = 'Signup';
+      $scope.toggleAccountForm = function(){
+        if($scope.toggleAccount=='Signup'){
+          $scope.toggleAccount = 'Login';
+        }else{
+          $scope.toggleAccount = 'Signup';
+        }
+      }
+
+      $scope.signup = function(){
+        User.signup({token:CryptoJS.MD5($scope.signupData.email+$scope.signupData.password+'secretsecretessecrets'),email:$scope.signupData.email,password:$scope.signupData.password});
+        $rootScope.isLoggedIn = true;
+        $state.go('tab.rides');
+      }
+
+      $scope.login = function(){
+        var secret = CryptoJS.MD5($scope.loginData.email+$scope.loginData.password+'secretsecretessecrets');
+        if(User.login({token:secret})){
+          $rootScope.isLoggedIn = true;
+          $rootScope.email = $scope.loginData.email;
+          $rootScope.key = secret;
+          $state.go('tab.rides');
+        }else{
+          $rootScope.isLoggedIn = false;
+          $scope.toggleAccountForm();
+        }
+      }
     }
-  }
+  })
 })
 
 .controller('RidesCtrl', function($scope, Rides, $rootScope) {
@@ -70,12 +79,9 @@ angular.module('starter.controllers', [])
 
 
 .controller('AccountCtrl', function($scope, Rides,$rootScope) {// location settings here
-  $scope.settings = {
-    enableFriends: true
-  };
-
   $scope.data = {};
-  $scope.data.imageSource = "img/ionic.png";
+  //$scope.data.imageSource = "img/rideshare.JPG";
+  $scope.data.imageSource = window.localStorage.getItem($rootScope.key);
   $scope.takePicture = function(){
     navigator.camera.getPicture(function(imageData){
       $scope.data.imageSource = imageData;
@@ -84,6 +90,7 @@ angular.module('starter.controllers', [])
       console.log(message);
     }, 
     { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.camera });
+    window.localStorage.setItem($rootScope.key, $scope.data.imageSource);
   };
 
   Rides.offeredRides($rootScope.email).then(function(response) {

@@ -7,10 +7,13 @@
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="ride in offeredRides" type="item-text-wrap" href="#/tab/rides/{{ride.id}}">
         <p>
-          Ride From {{ride.departure}} To {{ride.destination}}
+          From {{ride.departure}} To {{ride.destination}}
         </p>
         <p>
-          Time Taken : {{ride.time}} &nbsp Passengers: {{ride.passengers}}
+          Time Taken : {{ride.time}}
+        </p>
+        <p>
+          Passengers: {{ride.passengers}}
         </p>
         <ion-option-button class="button-assertive" ng-click="delete(ride.id)">
           Delete
@@ -25,7 +28,10 @@
           Ride From {{ride.departure}} To {{ride.destination}}
         </p>
         <p>
-          Time Taken : {{ride.time}} &nbsp Passengers: {{ride.passengers}}
+          Time Taken : {{ride.time}}
+        </p>
+        <p>
+          Passengers: {{ride.passengers}}
         </p>
         <ion-option-button class="button-assertive" ng-click="delete(ride.id)">
           Delete
