@@ -126,7 +126,7 @@ angular.module('starter.controllers', [])
       function alertCallback() {
           $state.go('tab.account');
       }
-      navigator.notification.alert("Ride sucessfully created。", alertCallback, "Congratulations!");
+      navigator.notification.alert("Ride sucessfully created.", alertCallback, "Congratulations!");
     };
   });
 });

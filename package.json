@@ -25,7 +25,6 @@
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-camera": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
@@ -35,7 +34,8 @@
       "cordova-plugin-buildinfo": {},
       "cordova-plugin-browsertab": {},
       "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-dialogs": {}
+      "cordova-plugin-dialogs": {},
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "android"
