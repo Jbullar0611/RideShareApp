@@ -91,4 +91,5 @@
     <preference name="phonegap-version" value="cli-8.0.0" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <engine name="android" spec="~7.0.0" />
+    <allow-navigation href="http://192.168.86.30:8100" />
 </widget>

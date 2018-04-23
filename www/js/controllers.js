@@ -84,18 +84,17 @@ angular.module('starter.controllers', [])
 .controller('AccountCtrl', function($scope, Rides,$rootScope, $state) {// location settings here
   $scope.$on('$ionicView.enter', function(e) {
     if ($rootScope.isLoggedIn) {
-      $scope.data = {};
-      //$scope.data.imageSource = "img/rideshare.JPG";
-      $scope.data.imageSource = window.localStorage.getItem($rootScope.key);
+      $scope.imageSource = window.localStorage.getItem($rootScope.key);
       $scope.takePicture = function(){
         navigator.camera.getPicture(function(imageData){
-          $scope.data.imageSource = 'data:image/jpeg;base64,' + imageData;
+          $scope.imageSource = 'data:image/jpeg;base64,' + imageData;
         }, 
         function(message){
           console.log(message);
         }, 
         { quality: 50, destinationType: navigator.camera.DestinationType.DATA_URL, sourceType: navigator.camera.PictureSourceType.camera, allowEdit:true, targetHeight:50, targetWidth:50 });
-        window.localStorage.setItem($rootScope.key, $scope.data.imageSource);
+        window.localStorage.removeItem($rootScope.key);
+        window.localStorage.setItem($rootScope.key, 'data:image/jpeg;base64,' + imageData);
       };
 
       Rides.offeredRides($rootScope.email).then(function(response) {
