@@ -89,7 +89,7 @@ angular.module('starter.controllers', [])
       $scope.data.imageSource = window.localStorage.getItem($rootScope.key);
       $scope.takePicture = function(){
         navigator.camera.getPicture(function(imageData){
-          $scope.data.imageSource = imageData;
+          $scope.data.imageSource = 'data:image/jpeg;base64,' + imageData;
         }, 
         function(message){
           console.log(message);
