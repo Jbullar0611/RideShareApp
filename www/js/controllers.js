@@ -94,7 +94,7 @@ angular.module('starter.controllers', [])
         function(message){
           console.log(message);
         }, 
-        { quality: 50, destinationType: navigator.camera.DestinationType.DATA_URL, sourceType: navigator.camera.PictureSourceType.camera });
+        { quality: 50, destinationType: navigator.camera.DestinationType.DATA_URL, sourceType: navigator.camera.PictureSourceType.camera, allowEdit:true, targetHeight:50, targetWidth:50 });
         window.localStorage.setItem($rootScope.key, $scope.data.imageSource);
       };
 
